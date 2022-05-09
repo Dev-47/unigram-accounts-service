@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework.generics import GenericAPIView
 import uuid
 
 
@@ -11,3 +12,7 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
         ordering = ["id", "-updated_at"]
+
+
+class BaseView(GenericAPIView):
+    pass
