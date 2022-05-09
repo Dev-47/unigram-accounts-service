@@ -17,11 +17,11 @@ services:
       - .:/home/unigram_accounts/app/
     env_file:
       - .env
-    command: python manage.py runserver 0.0.0.0:1000
+    command: python manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
-    expose:
-      - 1000
+    ports:
+      - 1000:8000
 
 volumes:
   postgres_data:
