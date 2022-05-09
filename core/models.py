@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from accounts.utils import BaseModel
 
@@ -26,3 +27,9 @@ class User(BaseModel, AbstractUser):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+    @property
+    def tokens(self):
+        __token = RefreshToken.for_user(self)
+
+        return {"access": str(__token), "refresh": str(__token.access_token)}
