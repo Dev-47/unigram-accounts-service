@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    volumes:
+      - .docker/db/data:/var/run/postgresql/
+    env_file:
+      - .env
+
+  api:
+    build:
+      context: .
+      dockerfile: ${PWD}/.docker/django/Dockerfile
+      target: base
+    volumes:
+      - .:/home/unigram_accounts/app/
+    env_file:
+      - .env
+    command: python manage.py runserver 0.0.0.0:1000
+    depends_on:
+      - db
+    expose:
+      - 1000
+
+volumes:
+  postgres_data:
